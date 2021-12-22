@@ -1,7 +1,6 @@
 
 import random
 
-
 # <<< create 2 lists from txt >>>
 
 def read(txt):
@@ -30,9 +29,9 @@ list_of_countries, list_of_capitals = read('countries-and-capitals.txt')
 
 def choose_difficulty():
     while True:
-        difficulty = input('Choose the level of difficulty: ')
+        difficulty = input('Choose the level of difficulty (1, 2, 3): ')
         if difficulty != '1' and difficulty!= '2' and difficulty!= '3':
-            print ('Wrong number. Give me an other;' ) 
+            print ('Wrong value. Give me a number between 1-3!' ) 
         else:
             return difficulty
 
@@ -102,28 +101,30 @@ def play_the_game(word, original_word, lives):
     guessed_letters = []
    
     
-    print('let\'s play!')
-    print(display_hangman(lives))
-    
+    print("\033[32mlet\'s play!\033[0m") # green text
+    print(f'\033[33m{display_hangman(lives)} \033[0m')  # yellow text
     print('\n')
+
     while not guessed and lives > 0:
         hack = list(word_with_underscores)
         underscores_with_space = ' '.join(hack)
+      
         print(underscores_with_space)
         print('\n')
-        print(f'Your lives count:  {lives}')
+        print(f'\033[34mYour lives count:  {lives}\033[0m') # blue text
+        
         
         print('\n')
-        guess = input('please guess a vowel or a consonant or a word: ').upper()
+        guess = input('Please guess a vowel or a consonant: ').upper()
         if len(guess) == 1 and guess.isalpha():
             if guess in guessed_letters:
-                print('you already guessed the letter', guess)
+                print('You already guessed the letter', guess)
             elif guess not in word:
                 print(guess, 'is not in the word')
                 lives -= 1
                 guessed_letters.append(guess)
             else:
-                print('well done', guess, 'is in the word!')
+                print('Well done', guess, 'is in the word!')
                 guessed_letters.append(guess)
                 
                 word_as_list = list(word_with_underscores) 
@@ -148,15 +149,20 @@ def play_the_game(word, original_word, lives):
                     if check or '_' not in word_with_underscores:
                         guessed = True
   
-        print(display_hangman(lives))
+   
+        print(f'\033[33m{display_hangman(lives)} \033[0m')
         
         
     if guessed:
-        print('congrats, you guessed the word! you win!')
+        print('\n')
+        print("\033[32mCongrats, you guessed the word! you win!\033[0m")
+        print('\n')
+        
     else:
-        print('sorry, you run out of tries, the word was: ' + word)
+        print('\n')
+        print(f'\033[31mSorry, you run out of lives, the word was: {word}\033[0m') # red text
+        print('\n')
                 
-
 
 
 def display_hangman(lives):
@@ -234,4 +240,3 @@ def main():
 
 if __name__ == '__main__':
     main() 
-
