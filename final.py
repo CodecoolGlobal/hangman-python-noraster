@@ -97,28 +97,19 @@ def play_the_game(word, original_word, lives):
             u = '_'
         word_with_underscores += u
 
-    # for letter in word:
-    #     if letter == ' ':
-    #         print(' ', end=' ')
-    #     else:
-    #         print('_', end=' ')
-    # print('\n')
-  
-    #print(word_with_underscores)
+   
     guessed = False
     guessed_letters = []
-    guessed_words = []
+   
     
-    
-  
     print('let\'s play!')
     print(display_hangman(lives))
     
     print('\n')
     while not guessed and lives > 0:
-        print(word_with_underscores)
-        print('\n')
-        print(list(word_with_underscores)) # a little hack - ['_', '_', '_', '_', '_', '_', '_']
+        hack = list(word_with_underscores)
+        underscores_with_space = ' '.join(hack)
+        print(underscores_with_space)
         print('\n')
         print(f'Your lives count:  {lives}')
         
@@ -137,7 +128,6 @@ def play_the_game(word, original_word, lives):
                 
                 word_as_list = list(word_with_underscores) 
                 # print(word_as_list) # ['_', '_', '_', '_', '_', ' ', '_', '_', '_', '_']
-
                 secret_word_as_list = list(word)
                 # print(secret_word_as_list) # ['P', 'H', 'N', 'O', 'M', ' ', 'P', 'E', 'N', 'H']
                 
@@ -157,22 +147,7 @@ def play_the_game(word, original_word, lives):
                     word_with_underscores = ''.join(word_as_list) 
                     if check or '_' not in word_with_underscores:
                         guessed = True
-
-                
-                    
-
-        elif len(guess) == len(word) and guess.isalpha():
-            if guess in guessed_words:
-                print('you already guessed the word', guess)
-            elif guess != word:
-                print(guess, 'is not the word')
-                lives -= 1
-                guessed_words.append(guess)
-            else:
-                guessed = True
-                
-        else:
-            print('not a valid guess')
+  
         print(display_hangman(lives))
         
         
@@ -181,9 +156,6 @@ def play_the_game(word, original_word, lives):
     else:
         print('sorry, you run out of tries, the word was: ' + word)
                 
-
-
-
 
 
 
@@ -262,3 +234,4 @@ def main():
 
 if __name__ == '__main__':
     main() 
+
