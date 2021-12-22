@@ -1,6 +1,6 @@
 
 import random
-import re
+
 
 # <<< create 2 lists from txt >>>
 
