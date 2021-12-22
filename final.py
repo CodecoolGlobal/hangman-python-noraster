@@ -25,8 +25,7 @@ list_of_countries, list_of_capitals = read('countries-and-capitals.txt')
 
 
 
-
-
+# <<< choose difficulty from 3 values >>>
 
 
 def choose_difficulty():
@@ -40,8 +39,9 @@ def choose_difficulty():
 difficulty_level = choose_difficulty()
 
 
+# <<< count the lives from difficulty level >>>
 
-def get_diff_level_and_original_word(dif):
+def get_diff_level(dif):
    
     lives = 0
     if dif == '1':
@@ -53,12 +53,12 @@ def get_diff_level_and_original_word(dif):
    
     return lives
 
-
-
-lives = get_diff_level_and_original_word(difficulty_level)
+lives = get_diff_level(difficulty_level)
 # print(lives)
-# print(original_case_word)
 
+
+
+# <<< get the secret word woth upper case, and the original word to compara >>>
 
 def get_word(list_capitals, list_countries):
     word1 = random.choice(list_countries)
@@ -78,15 +78,17 @@ the_secret_word, original_case_word = get_word(list_of_capitals, list_of_countri
 
 
 
-
+# <<< play the game >>>>
 
 
 
 
 def play_the_game(word, original_word, lives):
     original_word_as_list = list(original_word)
+
     word_with_underscores = ''
     print(word)
+    print('\n')
   
     for u in word:
         if u == ' ':
@@ -94,8 +96,15 @@ def play_the_game(word, original_word, lives):
         else:
             u = '_'
         word_with_underscores += u
-  
 
+    # for letter in word:
+    #     if letter == ' ':
+    #         print(' ', end=' ')
+    #     else:
+    #         print('_', end=' ')
+    # print('\n')
+  
+    #print(word_with_underscores)
     guessed = False
     guessed_letters = []
     guessed_words = []
@@ -104,10 +113,15 @@ def play_the_game(word, original_word, lives):
   
     print('let\'s play!')
     print(display_hangman(lives))
-    print(word_with_underscores)
+    
     print('\n')
     while not guessed and lives > 0:
+        print(word_with_underscores)
+        print('\n')
+        print(list(word_with_underscores)) # a little hack - ['_', '_', '_', '_', '_', '_', '_']
+        print('\n')
         print(f'Your lives count:  {lives}')
+        
         print('\n')
         guess = input('please guess a vowel or a consonant or a word: ').upper()
         if len(guess) == 1 and guess.isalpha():
@@ -122,22 +136,29 @@ def play_the_game(word, original_word, lives):
                 guessed_letters.append(guess)
                 
                 word_as_list = list(word_with_underscores) 
+                # print(word_as_list) # ['_', '_', '_', '_', '_', ' ', '_', '_', '_', '_']
+
                 secret_word_as_list = list(word)
-                print(secret_word_as_list) # ['L', 'U', 'X', 'E', 'M', 'B', 'O', 'U', 'R', 'G']
-                print(guessed_letters)
+                # print(secret_word_as_list) # ['P', 'H', 'N', 'O', 'M', ' ', 'P', 'E', 'N', 'H']
+                
                 
                 check = all(item in guessed_letters for item in secret_word_as_list)
-             
+                
+                # gives the indexes of matching letters
                 indexes = [i for i, letter in enumerate(word) if letter == guess] # [1,3]
                 
                 for i in indexes:
                     if original_word_as_list[i].islower() == True:
                         word_as_list[i] = guess.lower()
+                        
                     else:
                         word_as_list[i] = guess
+                        
                     word_with_underscores = ''.join(word_as_list) 
                     if check or '_' not in word_with_underscores:
                         guessed = True
+
+                
                     
 
         elif len(guess) == len(word) and guess.isalpha():
@@ -149,11 +170,11 @@ def play_the_game(word, original_word, lives):
                 guessed_words.append(guess)
             else:
                 guessed = True
-                #word_with_underscores = word
+                
         else:
             print('not a valid guess')
         print(display_hangman(lives))
-        print(word_with_underscores)
+        
         
     if guessed:
         print('congrats, you guessed the word! you win!')
@@ -228,7 +249,7 @@ def display_hangman(lives):
 
 
   
-
+# <<< controller >>>>
 
 def main():
     upper_word, original_word = get_word(list_of_capitals, list_of_countries)
