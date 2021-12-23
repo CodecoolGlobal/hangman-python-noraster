@@ -3,24 +3,20 @@ import random
 
 # <<< create 2 lists from txt >>>
 
+
 def read(txt):
     f = open(txt, "r")
-    list_of_words = f.readlines()
     countries = []
     capitals = []
-    string = ' '.join(list_of_words).strip()
-    list_of_items = string.split('|')
-    string2 = ' '.join(list_of_items)
-    list_of_words_final = string2.split('\n')
-    for item in list_of_words_final:
-        lines_of_c_c = item.strip().split('  ')
-    
-        countries.append(lines_of_c_c[0].strip())
-    
-        capitals.append(lines_of_c_c[1].strip())
+    list_of_words = f.readlines()
+    for row in list_of_words:
+        country, capital = row.split('|')
+        countries.append(country.strip())
+        capitals.append(capital.strip())
+
     return countries, capitals
 
-list_of_countries, list_of_capitals = read('countries-and-capitals.txt')
+countries, capitals = read('countries-and-capitals.txt')
 
 
 
@@ -59,20 +55,20 @@ lives = get_diff_level(difficulty_level)
 
 # <<< get the secret word woth upper case, and the original word to compara >>>
 
-def get_word(list_capitals, list_countries):
-    word1 = random.choice(list_countries)
-    word2 = random.choice(list_capitals)
+def get_word(capitals, countries):
+    word1 = random.choice(countries)
+    word2 = random.choice(capitals)
     list = [word1, word2]
     word = random.choice(list)
-    if word in list_capitals:
-        list_capitals.remove(word)
-    elif word in list_countries:
-        list_countries.remove(word)
+    if word in capitals:
+        capitals.remove(word)
+    elif word in countries:
+        countries.remove(word)
    
     return word.upper(), word
     
 
-the_secret_word, original_case_word = get_word(list_of_capitals, list_of_countries)
+# the_secret_word, original_case_word = get_word(list_of_capitals, list_of_countries)
 
 
 
@@ -230,12 +226,12 @@ def display_hangman(lives):
 # <<< controller >>>>
 
 def main():
-    upper_word, original_word = get_word(list_of_capitals, list_of_countries)
+    upper_word, original_word = get_word(capitals, countries)
   
     play_the_game(upper_word, original_word, lives)
     while input('play again? (Y/N)').upper() == 'Y':
      
-        upper_word, original_word = get_word(list_of_capitals, list_of_countries)
+        upper_word, original_word = get_word(capitals, countries)
         play_the_game(upper_word, original_word, lives)
 
 if __name__ == '__main__':
