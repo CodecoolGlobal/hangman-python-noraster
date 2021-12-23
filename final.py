@@ -79,7 +79,7 @@ def play_the_game(word, original_word, lives):
     original_word_as_list = list(original_word)
 
     word_with_underscores = ''
-    print(word)
+
     print('\n')
   
     for u in word:
@@ -92,6 +92,8 @@ def play_the_game(word, original_word, lives):
    
     guessed = False
     guessed_letters = []
+    
+    
    
     
     print("\033[32mlet\'s play!\033[0m") # green text
@@ -101,8 +103,10 @@ def play_the_game(word, original_word, lives):
     while not guessed and lives > 0:
         hack = list(word_with_underscores)
         underscores_with_space = ' '.join(hack)
-      
         print(underscores_with_space)
+        print('\n')
+        print(original_word)
+      
         print('\n')
         print(f'\033[34mYour lives count:  {lives}\033[0m') # blue text
         
@@ -142,8 +146,12 @@ def play_the_game(word, original_word, lives):
                     if check or '_' not in word_with_underscores:
                         guessed = True
   
-   
+        print(f'guessed letters: ', guessed_letters)
+        print('\n')
         print(f'\033[33m{display_hangman(lives)} \033[0m')
+        print('\n')
+      
+       
         
         
     if guessed:
