@@ -26,7 +26,8 @@ countries, capitals = read('countries-and-capitals.txt')
 def choose_difficulty():
     while True:
         difficulty = input('Choose the level of difficulty (1, 2, 3): ')
-        if difficulty != '1' and difficulty!= '2' and difficulty!= '3':
+        difficulty_levels = ['1', '2', '3']
+        if difficulty not in difficulty_levels:
             print ('Wrong value. Give me a number between 1-3!' ) 
         else:
             return difficulty
@@ -36,20 +37,16 @@ difficulty_level = choose_difficulty()
 
 # <<< count the lives from difficulty level >>>
 
-def get_diff_level(dif):
-   
-    lives = 0
-    if dif == '1':
-        lives = 6
-    elif dif == '2':
-        lives = 5
-    elif dif == '3':
-        lives = 4
-   
-    return lives
+def get_diff_level(difficulty):
+    lives_per_difficulty = {
+        '1' : 6,
+        '2' : 5,
+        '3' : 4
+    }
+    return lives_per_difficulty.get(difficulty)
 
 lives = get_diff_level(difficulty_level)
-# print(lives)
+print(lives)
 
 
 
